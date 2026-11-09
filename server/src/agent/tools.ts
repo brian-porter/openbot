@@ -141,7 +141,7 @@ export const TOOLS: ToolDef[] = [
       const url = String(a.url).replace(/'/g, '%27');
       await onScreen(ctx, (c, s) => {
         const display = s === 'default' ? ':99' : `:${s.replace('screen-', '')}`;
-        const profile = `/root/grokbot/profiles/${ctx.botId}`;
+        const profile = `/root/openbot/profiles/${ctx.botId}`;
         // Reuse the bot's running Chrome if present (opens a new tab), else start one detached.
         return orgo.bash(
           c,
@@ -157,13 +157,13 @@ export const TOOLS: ToolDef[] = [
   },
   {
     name: 'save_file',
-    description: "Save a deliverable (report, notes, CSV, code, markdown) to your Library so the user can open and download it. Saved under /root/grokbot/files/<your id>/ on your computer.",
+    description: "Save a deliverable (report, notes, CSV, code, markdown) to your Library so the user can open and download it. Saved under /root/openbot/files/<your id>/ on your computer.",
     parameters: obj({ filename: { type: 'string', description: 'e.g. briefing-2026-11-09.md' }, content: { type: 'string' } }, ['filename', 'content']),
     activity: 'drafting_file',
     label: 'Saving notes',
     impl: async (a, ctx) => {
       const name = String(a.filename).replace(/[^a-zA-Z0-9._-]/g, '_').slice(0, 120) || 'file.txt';
-      const dir = `/root/grokbot/files/${ctx.botId}`;
+      const dir = `/root/openbot/files/${ctx.botId}`;
       const b64 = Buffer.from(String(a.content), 'utf8').toString('base64');
       // Chunk the base64 so very large files don't exceed a single command's size.
       await onScreen(ctx, async (c, s) => {

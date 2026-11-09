@@ -130,7 +130,7 @@ export function ConnectAppsModal() {
 
   // Refresh after the OAuth popup reports back.
   useEffect(() => {
-    const onMsg = (e: MessageEvent) => { if ((e.data as { type?: string })?.type === 'grokbot-connected') refresh(); };
+    const onMsg = (e: MessageEvent) => { if ((e.data as { type?: string })?.type === 'openbot-connected') refresh(); };
     window.addEventListener('message', onMsg);
     return () => window.removeEventListener('message', onMsg);
   }, [refresh]);

@@ -1,13 +1,13 @@
 # Architecture
 
-grokbot-clone is a web app (`web/`) plus a Node server (`server/`) that runs every Bot's agent loop. The model is Grok 4.7 through the xAI Responses API. Each user's Bots act on one Orgo cloud computer and use apps connected through Composio.
+OpenBot is a web app (`web/`) plus a Node server (`server/`) that runs every Bot's agent loop. The default model provider is xAI, using its Responses API and `grok-4.7` model id. Each user's Bots act on one Orgo cloud computer and use apps connected through Composio.
 
 ## Components
 
 | Piece | Where | What it does |
 |---|---|---|
 | API + realtime | `server/src/routes*.ts`, `lib/hub.ts` | JSON over HTTP, plus one Server-Sent Events stream per user (`GET /api/events`) carrying row updates, live state, roster changes and computer state |
-| Agent loop | `server/src/agent/loop.ts` | Per-Bot serial queue. Each turn builds the system prompt and history, streams `grok-4.7` with function tools plus server-side `web_search`/`x_search`, runs tool calls, and repeats until the model answers |
+| Agent loop | `server/src/agent/loop.ts` | Per-Bot serial queue. Each turn builds the system prompt and history, streams the configured xAI model with function tools plus server-side `web_search`/`x_search`, runs tool calls, and repeats until the model answers |
 | Tools | `server/src/agent/tools.ts` | Computer use (`computer_*`, `open_browser`, `shell`, `save_file`), memory (`remember`/`recall`), routines (cron and app events), tasks, `send_to_bot`, subagents, group chats, `ask_user`, `request_app_connection`, `stay_silent`, plus Composio's meta tools for 1,000+ apps |
 | Memory | `server/src/agent/memory.ts`, `agent/prompt.ts` | Compacts long histories with xAI `POST /v1/responses/compact` (falls back to a summary). Consolidates durable facts after a chat goes idle. Keeps a bounded memory section in the prompt |
 | Computers | `server/src/computer.ts`, `orgo.ts`, `idle.ts` | One Orgo Linux VM per user, with one Orgo *screen* (a separate X display with its own desktop) per Bot, up to 4, leased least-recently-used among idle Bots. Auto-suspends after 20 idle minutes and wakes on the next computer action |
@@ -53,7 +53,7 @@ The loop checks policy before executing each tool call:
 
 ## Data
 
-SQLite (`data/grokbot.db`, WAL) holds:
+SQLite (`data/openbot.db`, WAL) holds:
 - users and sessions
 - Bots, rows, model history
 - approvals, policies
@@ -67,6 +67,6 @@ Secrets live only in `.env` on the server.
 
 | Service | Used for | Notes |
 |---|---|---|
-| xAI | `grok-4.7` (Responses API), realtime voice, TTS, STT | `prompt_cache_key` per Bot and generation, `safety_identifier` from a hashed user id |
+| xAI model provider | `grok-4.7` (Responses API), realtime voice, TTS, STT | `prompt_cache_key` per Bot and generation, `safety_identifier` from a hashed user id |
 | Orgo | VMs, screens, actions (screenshot, click, type, key, scroll, drag, bash), VNC, files | Rate limit is about 600 control calls/min per computer. An in-VM executor is the planned next step |
 | Composio | Sign-in, connectors, marketplace, triggers | Uses Composio-managed OAuth apps by default. Register your own OAuth clients for production branding |
