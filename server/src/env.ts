@@ -21,5 +21,5 @@ export const env = {
   orgoResolution: process.env.ORGO_RESOLUTION ?? '1280x800x24',
   sessionSecret: req('SESSION_SECRET'),
   devLogin: process.env.DEV_LOGIN === '1',
-  dbPath: process.env.DB_PATH ?? new URL('../../data/grokbot.db', import.meta.url).pathname,
+  dbPath: process.env.DB_PATH ?? new URL('../../data/openbot.db', import.meta.url).pathname,
 };

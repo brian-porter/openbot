@@ -1,4 +1,4 @@
-// Voice calls, the way Grok Bot does them: a second, lightweight voice agent runs in the browser against
+// Voice calls, the way OpenBot does them: a second, lightweight voice agent runs in the browser against
 // the xAI realtime API, speaks as the bot, and relays real work to the bot's main text agent loop.
 // This module mints the ephemeral secret, builds the voice agent's prompt and tools, serves the relay
 // tools, records call start/end rows, and proxies TTS (voice preview) and STT (composer dictation).
@@ -173,7 +173,7 @@ function voiceInstructions(userId: string, bot: any, language: string): string {
   const lang = language !== 'auto' ? langName(language) : null;
 
   return `# Who you are
-You are ${bot.name}, on a live voice call with ${firstName}, the person you work for. You are an AI Bot on their Grokbot team${bot.label ? `, and your job is: ${bot.label}` : ''}.${bot.description ? ` ${bot.description}` : ''}${bot.is_primary ? ` You are ${firstName}'s primary Bot and main point of contact.` : ''}
+You are ${bot.name}, on a live voice call with ${firstName}, the person you work for. You are an AI Bot on their OpenBot team${bot.label ? `, and your job is: ${bot.label}` : ''}.${bot.description ? ` ${bot.description}` : ''}${bot.is_primary ? ` You are ${firstName}'s primary Bot and main point of contact.` : ''}
 You are the same ${bot.name} they text with: the same memory, the same computer, the same connected apps. This call is just another way to talk to you.
 
 # How to get things done

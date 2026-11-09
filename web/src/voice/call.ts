@@ -1,4 +1,4 @@
-// The in-browser voice agent. Grok Bot runs calls as a second, lightweight agent against the xAI realtime
+// The in-browser voice agent. OpenBot runs calls as a second, lightweight agent against the xAI realtime
 // API that speaks as the bot and relays real work to the bot's main text agent (send_task). Results come
 // back through the normal transcript stream and are injected into the call as [work_landed] notes.
 import { create } from 'zustand';

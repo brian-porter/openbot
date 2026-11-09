@@ -127,9 +127,9 @@ configApi.post('/bots/:id/compact', async (c) => {
   return c.json({ itemsBefore: before, itemsAfter: after, compacted: after !== before });
 });
 
-// ---------- library: files under /root/grokbot/files/<botId> on the bot's computer ----------
+// ---------- library: files under /root/openbot/files/<botId> on the bot's computer ----------
 
-const LIB_ROOT = '/root/grokbot/files';
+const LIB_ROOT = '/root/openbot/files';
 
 function safeRel(p: string | undefined): string | null {
   const rel = (p ?? '').replace(/^\/+|\/+$/g, '');
@@ -223,7 +223,7 @@ configApi.post('/bots/:id/screen/reset', async (c) => {
   if (!lease) return c.json({ ok: true, note: 'no screen yet' });
   const comp = db.prepare("SELECT orgo_id FROM computers WHERE user_id=? AND status='running'").get(user.id) as any;
   if (!comp?.orgo_id) return c.json({ error: 'Wake the computer first' }, 409);
-  const profile = `/root/grokbot/profiles/${b.id}`;
+  const profile = `/root/openbot/profiles/${b.id}`;
   try {
     await orgo.bash(comp.orgo_id, undefined, `pkill -f ${shq(`user-data-dir=${profile}`)}; rm -f ${shq(profile)}/Singleton*; echo ok`, 30).catch(() => null);
     if (lease.screen_id !== 'default') {

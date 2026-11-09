@@ -1,6 +1,6 @@
 # Third-party notices
 
-grokbot-clone is MIT-licensed (see `LICENSE`). It bundles or depends on the third-party work listed below. npm dependencies not listed here are covered by their own licenses, included in their packages.
+OpenBot is MIT-licensed (see `LICENSE`). It bundles or depends on the third-party work listed below. npm dependencies not listed here are covered by their own licenses, included in their packages.
 
 ## Lucide icons
 
@@ -53,7 +53,3 @@ SOFTWARE.
 The Connect Apps screen and app cards show each app's logo by loading it at runtime from Composio's logo service (`https://logos.composio.dev/api/<toolkit>`). No logos are bundled in this repository. When a logo can't load, the UI shows a letter tile instead. Each logo is a trademark of its owner, and showing one implies no endorsement.
 
 The "Sign in with Google" button shows Google's "G" mark, which is a trademark of Google LLC.
-
-## Original artwork
-
-The bot avatar characters (`web/src/avatar/`), the favicon and `assets/icon.svg` were made for this project. They are drawn from basic geometry and covered by the project's MIT license.
