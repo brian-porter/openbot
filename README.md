@@ -11,13 +11,13 @@ OpenBot gives you always-on AI teammates. Each teammate has its own cloud comput
 
 ## Quick start
 
-Requires Node.js 22 or newer. Provider keys are optional individually; features that need an unconfigured provider will be unavailable.
+Requires Node.js 22 or newer. Today the server needs all four of `XAI_API_KEY`, `ORGO_API_KEY`, `COMPOSIO_API_KEY` and `SESSION_SECRET` at startup (see `server/src/env.ts`); making each provider optional is on the roadmap.
 
 ```bash
 git clone https://github.com/brian-porter/openbot.git
 cd openbot
 cp .env.example .env
-# Edit .env and add the provider keys/features you want to use.
+# Edit .env and add your provider keys.
 npm ci
 npm run dev -w @openbot/server
 npm run dev -w @openbot/web
@@ -27,17 +27,17 @@ Open http://localhost:5173. For local testing, set `DEV_LOGIN=1` and use the ema
 
 ## Bring your own providers
 
-Each integration is optional and uses your own account and keys:
+Each integration uses your own account and keys:
 
 - **Model:** xAI is the default model provider (`XAI_API_KEY`, optional `XAI_MODEL`; default `grok-4.7`). Voice uses xAI models as well.
 - **Cloud computer:** Orgo provides remote desktops (`ORGO_API_KEY`, `ORGO_WORKSPACE_ID`).
 - **Apps:** Composio provides connected apps and app events (`COMPOSIO_API_KEY`).
 
-Set only the credentials for services you choose to use. See [provider configuration](docs/model-and-app-providers.md), [cloud computer guide](docs/orgo-builder-guide.md), and [architecture](docs/ARCHITECTURE.md).
+See [provider configuration](docs/model-and-app-providers.md), [cloud computer guide](docs/orgo-builder-guide.md), and [architecture](docs/ARCHITECTURE.md).
 
 ## Join the AO collective
 
-OpenBot is the open-source on-ramp to AO, the cooperative of account owners building on AO. Account owners get the hosted version, AObot, with managed cloud computers for their agents. Learn more at [acrobi.com/ao](https://acrobi.com/ao). Contributions are welcome; start with [CONTRIBUTING.md](CONTRIBUTING.md).
+OpenBot is the open-source on-ramp to AO, a cooperative of account owners building on AO. We are building a hosted version for AO account owners, AObot, which will run agents' work on managed cloud computers. Contributions are welcome; start with [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## Credits
 
